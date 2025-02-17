@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Today</title>
+    
+    <style>
+        @font-face {
+  font-family: myFirstFont;
+  src: url(tribune.ttf);
+}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f5dd;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Navbar at the top */
+        .navbar {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+            
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar Categories */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 200px;
+            height: 100%;
+            background-color: #444;
+            padding-top: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            display: block;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 18px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #575757;
+        }
+
+       
+
+
+        /* Adjust content to move right */
+        main {
+            margin-left: 220px;
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .featured, .articles {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-container {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-left: 220px;
+        }
+
+        .footer-section {
+            margin: 10px;
+        }
+
+        .footer-section a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-left: 220px;
+        }
+
+        /* Sort Button */
+        .sort-container {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .sort-container select {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <div class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">World</a></li>
+            <li><a href="#">Technology</a></li>
+            <li><a href="#">Sports</a></li>
+            <li><a href="#">Entertainment</a></li>
+        </ul>
+    </div>
+
+    <!-- Left Sidebar Categories -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#">Politics</a></li>
+            <li><a href="#">Science</a></li>
+            <li><a href="#">Health</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Travel</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        
+        <h1 style="text-align: center; margin-top: 80px; "
+        ><u>NEWS TODAY</u></h1>
+    </header>
+
+    <main>
+
+        <!-- Sorting Dropdown -->
+        <div class="sort-container">
+            <label for="sort">Sort by Date: </label>
+            <select id="sort" onchange="sortArticles()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+
+        <section class="articles">
+            <article data-date="2025-02-15">
+                <h3>World Politics Update</h3>
+                <p>New agreements signed between nations...</p>
+                <p><strong>Date: Feb 15, 2025</strong></p>
+                <a href="#">Read more</a>
+            </article>
+            <article data-date="2025-01-28">
+                <h3>Sports Championship Highlights</h3>
+                <p>The latest results from the international tournament...</p>
+                <p><strong>Date: Jan 28, 2025</strong></p>
+                <a href="#">Read more</a>
+            </article>
+            <article data-date="2025-02-10">
+                <h3>Major Tech Breakthrough</h3>
+                <p>Scientists announce a revolutionary AI model that changes the tech industry...</p>
+                <p><strong>Date: Feb 10, 2025</strong></p>
+                <a href="#">Read more</a>
+            </article>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your trusted source for the latest news updates.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: support@newstoday.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 News Today. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function sortArticles() {
+            let container = document.querySelector(".articles");
+            let articles = Array.from(container.getElementsByTagName("article"));
+            let sortBy = document.getElementById("sort").value;
+
+            articles.sort((a, b) => {
+                let dateA = new Date(a.getAttribute("data-date"));
+                let dateB = new Date(b.getAttribute("data-date"));
+
+                return sortBy === "newest" ? dateB - dateA : dateA - dateB;
+            });
+
+            container.innerHTML = "";
+            articles.forEach(article => container.appendChild(article));
+        }
+    </script>
+
+</body>
+</html>
